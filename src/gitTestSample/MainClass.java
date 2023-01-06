@@ -7,6 +7,9 @@ public class MainClass {
 
 		System.out.println("git test sample base");
 		
+		System.out.println("수정하였음!");
+
+		
 	}
 
 }
