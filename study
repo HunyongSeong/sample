@@ -1,0 +1,43 @@
+### setNeedsLayout, setNeedsDisplay, layoutIfNeeded가 언제 쓰여야하는지 코드로 확인해보시오.
+
+Swift에서 **`setNeedsLayout`**, **`setNeedsDisplay`**및 를 사용하는 경우에 대한 설명입니다.
+
+1. **`setNeedsLayout / setNeedsLayout / setNeedsLayout`**
+    
+    : 이 방법은 뷰와 하위 뷰에 대한 레이아웃 업데이트를 예약하려는 경우에 사용됩니다. **setNeedsLayout을** 호출하면 시스템이 뷰를 레이아웃 업데이트가 필요한 것으로 표시하지만 업데이트가 즉시 수행되지는 않습니다. 대신 시스템은 실제 레이아웃 업데이트를 수행하기 위해 다음 레이아웃 업데이트 주기까지 기다립니다.
+    
+    크기나 위치 변경과 같이 레이아웃에 영향을 주는 보기를 변경할 때마다 호출해야 합니다 .
+    
+
+예시코드
+
+```swift
+// Update the frame of a view
+myView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+
+// Schedule a layout update
+myView.setNeedsLayout()
+```
+
+2. **`setNeedsDisplay`**: 이 방법은 뷰의 내용을 다시 그리기를 예약하려는 경우에 사용됩니다. **`setNeedsDisplay`** 를 호출하면 시스템에서 보기를 다시 그려야 한다고 표시하지만 다시 그리기가 즉시 발생하지는 않습니다. 대신 시스템은 실제 다시 그리기를 수행하기 위해 다음 그리기 주기까지 기다립니다. **`setNeedsDisplay`**배경색 변경 또는 하위 보기 추가와 같이 다시 그려야 하는 보기의 내용을 변경할 때마다 호출해야 합니다 .
+
+```swift
+// Add a subview to a view
+myView.addSubview(mySubview)
+
+// Schedule a redraw
+myView.setNeedsDisplay()
+```
+
+3.  **`layoutIfNeeded`**: 즉시 레이아웃을 강제로 업데이트하고 싶을 때 사용하는 방법입니다.  **`layoutIfNeeded`를** 호출하면 시스템이 즉시 보기 및 해당 하위 보기에 대한 레이아웃 업데이트를 수행합니다. 레이아웃을 변경한 후 뷰의 실제 프레임을 가져와야 하는 경우와 같이 뷰에 대한 최신 레이아웃 정보를 가져와야 하는 경우 호출해야 합니다 .
+
+```swift
+// Update the frame of a view
+myView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+
+// Force a layout update to get the latest frame
+myView.layoutIfNeeded()
+
+// Get the actual frame of the view
+let actualFrame = myView.frame
+```
